@@ -6,6 +6,7 @@
 # library module.
 #
 # Copyright (c) 2007-2012 Barry Barnreiter (barry_b@users.sourceforge.net)
+# Copyright (c) 2014 Anton D. Kachalov (mouse@yandex.ru)
 #
 ###########################################################################
 

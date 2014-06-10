@@ -5,6 +5,7 @@
 # A Windows service providing remote access to the OpenOPC library.
 #
 # Copyright (c) 2007-2012 Barry Barnreiter (barry_b@users.sourceforge.net)
+# Copyright (c) 2014 Anton D. Kachalov (mouse@yandex.ru)
 #
 ###########################################################################
 
