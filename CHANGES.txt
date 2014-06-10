@@ -1,8 +1,9 @@
 OpenOPC for Python 1.2.0
 Copyright (c) 2008-2012 by Barry Barnreiter (barry_b@users.sourceforge.net)
+Copyright (c) 2014 by Anton D. Kachalov (mouse@yandex.ru)
 
 http://openopc.sourceforge.net/
-
+https://github.com/ya-mouse/openopc
 
 RELEASE NOTES
 February 11, 2012
@@ -30,14 +31,14 @@ of Python when installing the Development Library.   Previous versions
 of the installer only checked for the older Python 2.5.
 
 4. The included opc.exe and OpenOPCService.exe executibles have been
-built using Python 2.7.2 and Pyro 3.15.  Older versions were built using
+built using Python 3.4+ and Pyro4.  Older versions were built using
 Pyro 3.10 which is not protocol compatible with the newer Pyro 3.15.
 Thus you cannot use a prior version of the client with the newer gateway
 service or vice versa.   Please update all your instances of OpenOPC
 at the same time in order to avoid this compatibility issue.
 
-5. OpenOPC has been tested with Python 2.7.  Previous versions were
-only tested using Python 2.5 and 2.6.
+5. OpenOPC has been tested with Python 3.4. Previous versions
+are not supported.
 
 6. OpenOPC has been tested with Windows 7 (64-bit).  Previous versions
 were only tested using Windows Server 2003 and XP.

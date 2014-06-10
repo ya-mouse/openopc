@@ -1,8 +1,9 @@
 OpenOPC for Python 1.2.0
 Copyright (c) 2008-2012 by Barry Barnreiter (barry_b@users.sourceforge.net)
+Copyright (c) 2014 by Anton D. Kachalov (mouse@yandex.ru)
 
 http://openopc.sourceforge.net/
-
+https://github.com/ya-mouse/openopc
 
 Post installation
 -----------------
@@ -68,14 +69,14 @@ installation process, then you'll need to also download and install
 the following packages in order to develop your own Python programs
 which use the OpenOPC library:
 
-1. Python 2.7.x
+1. Python 3.4+
    http://www.python.org/download/
 
 2. Python for Windows Extensions (pywin32)
    http://sourceforge.net/projects/pywin32/
 
-3. Pyro 3.15
-   http://irmen.home.xs4all.nl/pyro3/
+3. Pyro4
+   https://github.com/irmen/Pyro4
 
 Of course, Python is necessary on all platforms.  However the other
 packages may be optional depending on your configuration:
@@ -83,17 +84,17 @@ packages may be optional depending on your configuration:
 1. Win32 platform, using the OpenOPC Gateway Service
 
 Pywin32:  optional
-Pyro:     required
+Pyro4:    required
 
 2. Win32 platform, talking to OPC Servers directly using COM/DCOM
 
 Pywin32:  required
-Pyro:     optional
+Pyro4:    optional
 
-3. Non-Windows platform (use of Gateway Service is manditory)
+3. Non-Windows platform (use of Gateway Service is mandatory)
 
 Pywin32:  not applicable
-Pyro:     required
+Pyro4:    required
 
 In order to get the most from the OpenOPC package, Windows developers
 are encouraged to install both Pywin32 and Pyro.  Using Pyro to talk to
