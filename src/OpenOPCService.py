@@ -30,9 +30,10 @@ except ImportError:
     exit()
 
 Pyro4.config.SERVERTYPE='thread'
+#Pyro4.config.SERIALIZER='marshal'
 
 opc_class = OpenOPC.OPC_CLASS
-opc_gate_host = '213.180.215.68'
+opc_gate_host = ''
 opc_gate_port = 7766
 
 def getvar(env_var):
@@ -137,6 +138,7 @@ if __name__ == '__main__':
         except win32service.error as details:
             if details.winerror == winerror.ERROR_FAILED_SERVICE_CONTROLLER_CONNECT:
                 win32serviceutil.usage()
+                print(' --foreground: Run OpenOPCService in foreground.')
 
     else:
         if sys.argv[1] == '--foreground':
