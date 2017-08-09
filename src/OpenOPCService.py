@@ -6,6 +6,7 @@
 #
 # Copyright (c) 2007-2012 Barry Barnreiter (barry_b@users.sourceforge.net)
 # Copyright (c) 2014 Anton D. Kachalov (mouse@yandex.ru)
+# Copyright (c) 2017 José A. Maita (jose.a.maita@gmail.com)
 #
 ###########################################################################
 
@@ -26,18 +27,18 @@ try:
     import Pyro4.core
     #import Pyro4.protocol
 except ImportError:
-    print('Pyro module required (http://pyro.sourceforge.net/)')
+    print('Pyro4 module required (https://pypi.python.org/pypi/Pyro4)')
     exit()
 
 Pyro4.config.SERVERTYPE='thread'
 #Pyro4.config.SERIALIZER='marshal'
 
 opc_class = OpenOPC.OPC_CLASS
-opc_gate_host = ''
-opc_gate_port = 7766
+opc_gate_host = os.environ['OPC_GATE_HOST']
+opc_gate_port = int(os.environ['OPC_GATE_PORT'])
 
 def getvar(env_var):
-    """Read system enviornment variable from registry"""
+    """Read system environment variable from registry"""
     try:
         key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SYSTEM\\CurrentControlSet\\Control\Session Manager\Environment',0,_winreg.KEY_READ)
         value, valuetype = _winreg.QueryValueEx(key, env_var)
@@ -48,10 +49,11 @@ def getvar(env_var):
 # Get env vars directly from the Registry since a reboot is normally required
 # for the Local System account to inherit these.
 
-if getvar('OPC_CLASS'):  opc_class = getvar('OPC_CLASS')
-if getvar('OPC_GATE_HOST'):  opc_gate_host = getvar('OPC_GATE_HOST')
-if getvar('OPC_GATE_PORT'):  opc_gate_port = int(getvar('OPC_GATE_PORT'))
+#if getvar('OPC_CLASS'):  opc_class = getvar('OPC_CLASS')
+#if getvar('OPC_GATE_HOST'):  opc_gate_host = getvar('OPC_GATE_HOST')
+#if getvar('OPC_GATE_PORT'):  opc_gate_port = int(getvar('OPC_GATE_PORT'))
 
+@Pyro4.expose    # needed for version 4.55
 class opc(object):
     def __init__(self):
         self._remote_hosts = {}
@@ -61,11 +63,14 @@ class opc(object):
     def get_clients(self):
         """Return list of server instances as a list of (GUID,host,time) tuples"""
         
-        reg = Pyro4.core.DaemonObject(self._pyroDaemon).registered()[2:]
+        # reg = Pyro4.core.DaemonObject(self._pyroDaemon).registered()[2:]
+        reg1 = Pyro4.core.DaemonObject(self._pyroDaemon).registered()   # needed for version 4.55
+        reg2 = [si for si in reg1 if si.find('obj_') == 0]
+        reg = ["PYRO:{0}@{1}:{2}".format(obj, opc_gate_host, opc_gate_port) for obj in reg2]
         hosts = self._remote_hosts
         init_times = self._init_times
         tx_times = self._tx_times
-        hlist = [(k, hosts[k] if k in hosts else '', init_times[k], tx_times[k]) for k in reg]
+        hlist = [(hosts[k] if k in hosts else '', init_times[k], tx_times[k]) for k in reg]
         return hlist
     
     def create_client(self):
