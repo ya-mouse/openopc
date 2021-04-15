@@ -40,8 +40,8 @@ opc_gate_port = 7766
 def getvar(env_var):
     """Read system environment variable from registry"""
     try:
-        key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SYSTEM\\CurrentControlSet\\Control\Session Manager\Environment',0,_winreg.KEY_READ)
-        value, valuetype = _winreg.QueryValueEx(key, env_var)
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SYSTEM\\CurrentControlSet\\Control\Session Manager\Environment',0,winreg.KEY_READ)
+        value, valuetype = winreg.QueryValueEx(key, env_var)
         return value
     except:
         return None
